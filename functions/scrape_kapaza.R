@@ -8,6 +8,33 @@ scrape <- function(url,
   
           library(rvest)
           library(stringr)
+          library(checkmate)
+  
+          # return error if arguments selected are incorrect
+  
+          error_messages = makeAssertCollection()
+          
+          assert_character(url,
+                           fixed = "http://www.kapaza.be/nl/",
+                           add = error_messages)
+          
+          assert_numeric(time_between_requests, lower = 0, upper = Inf, add = error_messages)
+          assert_numeric(randomization_requests, lower = 0, upper = Inf, add = error_messages)
+          
+          assert_numeric(time_between_requests - randomization_requests,
+                         lower = 0,
+                         upper = Inf,
+                         add = error_messages)
+          
+          assert_logical(save_html,
+                         add = error_messages)
+          
+          assert_character(save_path,
+                           add = error_messages)
+          
+          return(error_messages)
+          
+          reportAssertions(error_messages)
           
           # read html
   
@@ -35,4 +62,6 @@ scrape <- function(url,
           Sys.sleep(time = sample(x = wait_times, size = 1)) }
 
 save(scrape, file = "C:\\Users\\Felix Timmermans\\Desktop\\cars_arbitrage\\functions\\scrape_kapaza.RData")
+
+test <- scrape("kljlk", -1, -1, "kjl",TRUE)
 
