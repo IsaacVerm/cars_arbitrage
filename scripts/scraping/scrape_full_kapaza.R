@@ -5,19 +5,26 @@
 library(rvest)
 library(dplyr)
 
-## load filepath
+## project path
 
-load_path <- "C:\\Users\\Felix Timmermans\\Desktop\\cars_arbitrage\\output\\scraping\\brand_popularity"
+project_path <- "C:\\Users\\Felix Timmermans\\Desktop\\cars_arbitrage"
 
 ## load
 
-posts <- read.csv(file = paste0(load_path, "\\posts_by_brand.csv"))
+# posts
+
+posts <- read.csv(file = paste0(project_path,
+                                "\\output\\scraping\\brand_popularity\\posts_by_brand.csv"))
+
+# function to scrape
+
+load(paste0(project_path, "\\functions\\scrape.RData"))
 
 ### get urls pages
 
 ## get html cars page
 
-cars_html <- read_html("http://www.kapaza.be/nl/auto")
+cars_html <- scrape("http://www.kapaza.be/nl/auto")
 
 ## get html brands pages
 

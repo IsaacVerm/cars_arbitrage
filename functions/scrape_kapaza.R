@@ -7,6 +7,7 @@ scrape <- function(url,
           # packages
   
           library(rvest)
+          library(stringr)
           
           # read html
   
@@ -26,12 +27,12 @@ scrape <- function(url,
           }
   
           # wait
-  
-          wait_times <- rnorm(n = 1000,
-                              mean = time_between_requests,
-                              sd = time_between_requests/randomization_requests)
+          
+          wait_times <- runif(n = 1000,
+                              min = time_between_requests - randomization_requests,
+                              max = time_between_requests + randomization_requests)
   
           Sys.sleep(time = sample(x = wait_times, size = 1)) }
 
-save(scrape, file = "C:\\Users\\Felix Timmermans\\Desktop\\cars_arbitrage\\functions\\scrape.RData")
+save(scrape, file = "C:\\Users\\Felix Timmermans\\Desktop\\cars_arbitrage\\functions\\scrape_kapaza.RData")
 
